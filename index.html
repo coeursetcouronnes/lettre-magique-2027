@@ -3,143 +3,575 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La lettre</title>
+
+  <title>Cœur & Couronne — Une lettre vous est parvenue</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #541C3B;
+      background:
+        radial-gradient(circle at 50% 20%, #7b3154 0%, #541c3b 38%, #2a1024 100%);
       font-family: Georgia, "Times New Roman", serif;
+      color: #3b291c;
+      overflow-x: hidden;
     }
+
+    /* =========================
+       AMBIANCE
+       ========================= */
+
+    .ambiance {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .lueur {
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: rgba(255, 196, 103, 0.08);
+      filter: blur(60px);
+      animation: respiration 5s ease-in-out infinite;
+    }
+
+    .lueur.gauche {
+      left: -180px;
+      top: 20%;
+    }
+
+    .lueur.droite {
+      right: -180px;
+      top: 55%;
+      animation-delay: 2s;
+    }
+
+    @keyframes respiration {
+      0%, 100% {
+        opacity: 0.35;
+        transform: scale(0.9);
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: scale(1.15);
+      }
+    }
+
+    /* =========================
+       PAGE
+       ========================= */
 
     .page {
-      width: 90%;
-      max-width: 700px;
+      position: relative;
+      z-index: 2;
+      width: 94%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 70px 20px 100px;
       text-align: center;
-      padding: 50px 20px;
     }
 
-    h1 {
-      color: #f1dfbd;
+    .titre-haut {
+      color: #f4dfb5;
+      font-size: clamp(26px, 5vw, 42px);
       font-weight: normal;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
+      text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.6);
+      margin-bottom: 12px;
     }
 
-    .page > p {
-      color: #d8c39f;
+    .sous-titre {
+      color: #d9bc91;
       font-size: 18px;
-      margin-bottom: 30px;
+      font-style: italic;
+      margin-bottom: 40px;
     }
 
-    button {
-      padding: 15px 28px;
-      background: transparent;
-      color: #e0bd72;
+    .ornement {
+      color: #d5ad60;
+      font-size: 28px;
+      letter-spacing: 12px;
+      margin-bottom: 25px;
+    }
+
+    /* =========================
+       BOUTON OUVRIR
+       ========================= */
+
+    #ouvrir {
+      padding: 17px 32px;
+      background: rgba(40, 12, 30, 0.65);
+      color: #e7c77d;
       border: 1px solid #c9a45c;
+      border-radius: 2px;
       font-family: Georgia, "Times New Roman", serif;
       font-size: 16px;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
       cursor: pointer;
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.35),
+        inset 0 0 15px rgba(255, 206, 120, 0.05);
+      transition: all 0.4s ease;
     }
 
-    button:hover {
-      background: #3b1838;
+    #ouvrir:hover {
+      background: rgba(91, 27, 55, 0.9);
+      transform: translateY(-3px);
+      box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.45),
+        0 0 20px rgba(221, 178, 94, 0.15);
     }
+
+    /* =========================
+       DECORATIONS FLORALES
+       ========================= */
+
+    .decorations {
+      position: relative;
+      min-height: 40px;
+    }
+
+    .fleur {
+      position: absolute;
+      font-size: 46px;
+      filter: drop-shadow(0 5px 5px rgba(0,0,0,0.4));
+      z-index: 8;
+      animation: fleur-flotte 5s ease-in-out infinite;
+    }
+
+    .rose1 {
+      left: -20px;
+      top: 80px;
+    }
+
+    .rose2 {
+      right: -20px;
+      top: 170px;
+      animation-delay: 1s;
+    }
+
+    .lys1 {
+      left: 5px;
+      top: 430px;
+      font-size: 42px;
+      animation-delay: 2s;
+    }
+
+    .lys2 {
+      right: 5px;
+      top: 500px;
+      font-size: 42px;
+      animation-delay: 3s;
+    }
+
+    .rose3 {
+      left: 30px;
+      bottom: 100px;
+      font-size: 38px;
+      animation-delay: 1.5s;
+    }
+
+    .rose4 {
+      right: 30px;
+      bottom: 130px;
+      font-size: 38px;
+      animation-delay: 2.5s;
+    }
+
+    @keyframes fleur-flotte {
+      0%, 100% {
+        transform: rotate(-4deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(4deg) translateY(-7px);
+      }
+    }
+
+    /* =========================
+       SCEAU
+       ========================= */
 
     .sceau {
-      width: 70px;
-      height: 70px;
-      margin: 25px auto -15px;
+      position: relative;
+      z-index: 10;
+      width: 82px;
+      height: 82px;
+      margin: 30px auto -22px;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #8b183d;
-      border: 3px solid #b78b3d;
+
+      background:
+        radial-gradient(circle at 35% 30%, #b72e55, #761735 55%, #4d1026);
+
+      border: 4px solid #a87832;
       border-radius: 50%;
-      color: #f1dfbd;
-      font-size: 32px;
+
+      color: #f5dfad;
+      font-size: 31px;
       font-weight: bold;
+
       box-shadow:
-        0 5px 10px rgba(0, 0, 0, 0.45),
-        inset 0 0 12px rgba(60, 0, 20, 0.5),
-        inset 0 0 0 4px #6b1230;
+        0 8px 15px rgba(0, 0, 0, 0.55),
+        inset 5px 5px 12px rgba(255, 100, 130, 0.12),
+        inset -5px -5px 12px rgba(40, 0, 15, 0.4);
     }
 
+    .sceau::before {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border: 1px solid rgba(226, 187, 102, 0.5);
+      border-radius: 50%;
+    }
+
+    /* =========================
+       PARCHEMIN
+       ========================= */
+
     #lettre {
+      position: relative;
       margin: 40px auto 0;
-      max-width: 500px;
-      padding: 45px 40px;
+      max-width: 650px;
+
+      padding: 65px 55px;
+
       background:
-        linear-gradient(
-          rgba(255, 248, 220, 0.92),
-          rgba(224, 201, 151, 0.92)
+        radial-gradient(
+          ellipse at center,
+          rgba(255, 249, 218, 0.98) 0%,
+          rgba(240, 216, 167, 0.98) 65%,
+          rgba(199, 164, 103, 0.98) 100%
         );
-      color: #3b291c;
-      border: 3px double #b78b3d;
+
+      border: 8px solid transparent;
+
+      border-image:
+        linear-gradient(
+          135deg,
+          #8c6229,
+          #d5ad60,
+          #815521,
+          #d6b46d,
+          #70481e
+        ) 1;
+
       box-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.55),
-        inset 0 0 30px rgba(120, 85, 30, 0.25);
+        0 25px 50px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 220, 145, 0.35),
+        inset 0 0 45px rgba(92, 58, 17, 0.2),
+        inset 0 0 100px rgba(122, 76, 21, 0.08);
+
       text-align: left;
-      line-height: 1.7;
+      line-height: 1.8;
+
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 1.2s ease, transform 1.2s ease;
+      transform: translateY(30px) scale(0.98);
+
+      transition:
+        opacity 1.4s ease,
+        transform 1.4s ease;
+    }
+
+    /* Effet papier */
+    #lettre::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(116, 78, 29, 0.3);
+      pointer-events: none;
+    }
+
+    /* Coins décoratifs */
+    #lettre::after {
+      content: "❦";
+      position: absolute;
+      top: 18px;
+      right: 25px;
+      color: #987033;
+      font-size: 26px;
     }
 
     #lettre h2 {
       margin-top: 0;
-      color: #4a2c22;
+      margin-bottom: 30px;
+      color: #542d24;
       font-weight: normal;
       text-align: center;
-      font-size: 25px;
+      font-size: clamp(25px, 5vw, 34px);
+      letter-spacing: 2px;
+    }
+
+    #lettre h2::after {
+      content: "❦";
+      display: block;
+      color: #a77937;
+      font-size: 22px;
+      margin-top: 8px;
     }
 
     #lettre p {
       color: #3b291c;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
+      font-size: 17px;
     }
 
-    #lettre .signature {
-      margin-top: 35px;
-      text-align: right;
+    #lettre strong {
+      color: #4a2920;
+    }
+
+    /* =========================
+       QUESTIONNAIRE
+       ========================= */
+
+    .questionnaire-container {
+      text-align: center;
+      margin: 40px 0;
+      padding: 25px 15px;
+
+      border-top: 1px solid rgba(122, 79, 25, 0.35);
+      border-bottom: 1px solid rgba(122, 79, 25, 0.35);
+    }
+
+    .questionnaire-intro {
       font-style: italic;
-      color: #5a3a25;
+      margin-bottom: 22px;
     }
 
     .questionnaire {
-      display: block;
-      width: fit-content;
-      margin: 30px auto;
-      padding: 15px 28px;
-      background: #541C3B;
-      color: #e0bd72;
-      border: 1px solid #b78b3d;
+      display: inline-block;
+      padding: 17px 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #651c3b,
+          #45152f
+        );
+
+      color: #e9ca82;
+      border: 1px solid #b88a42;
       text-decoration: none;
+
       font-family: Georgia, "Times New Roman", serif;
       font-size: 16px;
-      letter-spacing: 1px;
-      text-align: center;
+      letter-spacing: 1.5px;
+
+      box-shadow:
+        0 7px 15px rgba(0, 0, 0, 0.35);
+
+      transition: all 0.4s ease;
     }
 
     .questionnaire:hover {
-      background: #3b1838;
+      transform: translateY(-3px);
+      background: #7b2147;
+      box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    /* =========================
+       SIGNATURE
+       ========================= */
+
+    .signature {
+      margin-top: 45px !important;
+      text-align: right;
+      font-style: italic;
+      color: #62412c !important;
+    }
+
+    .fin {
+      text-align: center;
+      color: #a0783a;
+      font-size: 25px;
+      margin-top: 35px;
+    }
+
+    /* =========================
+       MUSIQUE
+       ========================= */
+
+    #musique {
+      position: fixed;
+      z-index: 50;
+      bottom: 20px;
+      right: 20px;
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 50%;
+      border: 1px solid #c9a45c;
+
+      background: rgba(42, 13, 31, 0.88);
+      color: #e6c87f;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.45);
+
+      font-size: 20px;
+
+      transition: all 0.3s ease;
+    }
+
+    #musique:hover {
+      transform: scale(1.08);
+    }
+
+    .mention-musique {
+      position: fixed;
+      z-index: 50;
+      bottom: 26px;
+      right: 78px;
+
+      color: rgba(240, 215, 174, 0.8);
+      font-size: 12px;
+      font-style: italic;
+      pointer-events: none;
+    }
+
+    /* =========================
+       PETITES PARTICULES
+       ========================= */
+
+    .particule {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(232, 199, 127, 0.6);
+      pointer-events: none;
+      z-index: 1;
+      animation: monter 8s linear infinite;
+    }
+
+    @keyframes monter {
+      from {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.7;
+      }
+
+      80% {
+        opacity: 0.7;
+      }
+
+      to {
+        transform: translateY(-20vh);
+        opacity: 0;
+      }
+    }
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 700px) {
+
+      .page {
+        width: 96%;
+        padding: 45px 8px 80px;
+      }
+
+      #lettre {
+        padding: 48px 25px;
+      }
+
+      #lettre p {
+        font-size: 16px;
+      }
+
+      .fleur {
+        font-size: 32px;
+      }
+
+      .rose1 {
+        left: -4px;
+      }
+
+      .rose2 {
+        right: -4px;
+      }
+
+      .lys1 {
+        left: -2px;
+      }
+
+      .lys2 {
+        right: -2px;
+      }
+
+      .mention-musique {
+        display: none;
+      }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- Ambiance lumineuse -->
+  <div class="ambiance">
+    <div class="lueur gauche"></div>
+    <div class="lueur droite"></div>
+  </div>
+
+  <!-- Particules -->
+  <div class="particule" style="left:10%; animation-delay:0s;"></div>
+  <div class="particule" style="left:25%; animation-delay:2s;"></div>
+  <div class="particule" style="left:45%; animation-delay:4s;"></div>
+  <div class="particule" style="left:65%; animation-delay:1s;"></div>
+  <div class="particule" style="left:85%; animation-delay:3s;"></div>
+
   <div class="page">
 
-    <h1>Une lettre vous est parvenue…</h1>
+    <div class="ornement">✦ ❦ ✦</div>
 
-    <p>Une histoire s'apprête à vous être révélée.</p>
+    <h1 class="titre-haut">
+      Une lettre vous est parvenue…
+    </h1>
 
-    <button id="ouvrir">✦ OUVRIR LA LETTRE ✦</button>
+    <p class="sous-titre">
+      Une histoire s'apprête à vous être révélée.
+    </p>
+
+    <button id="ouvrir">
+      ✦ OUVRIR LA LETTRE ✦
+    </button>
+
+    <div class="decorations">
+
+      <div class="fleur rose1">🌹</div>
+      <div class="fleur rose2">🌹</div>
+
+      <div class="fleur lys1">⚜️</div>
+      <div class="fleur lys2">⚜️</div>
+
+      <div class="fleur rose3">🌹</div>
+      <div class="fleur rose4">🌹</div>
+
+    </div>
 
     <div class="sceau">✦</div>
 
@@ -147,11 +579,14 @@
 
       <h2>Oyé ! Oyé !</h2>
 
-      <p><strong>Chers Façonneurs d’univers,</strong></p>
+      <p>
+        <strong>Chers Façonneurs d’univers,</strong>
+      </p>
 
       <p>
         Nous avons bien reçu votre missive et vous remercions sincèrement
-        de l’intérêt porté au salon <strong>Cœur &amp; Couronne</strong>.
+        de l’intérêt porté au salon
+        <strong>Cœur &amp; Couronne</strong>.
       </p>
 
       <p>
@@ -184,14 +619,22 @@
         de bien vouloir consulter le questionnaire joint à ce parchemin.
       </p>
 
-      <a
-        class="questionnaire"
-        href="https://forms.gle/FoHmTBp75hx2q7oR9"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        ✦ RÉPONDRE AU QUESTIONNAIRE ✦
-      </a>
+      <div class="questionnaire-container">
+
+        <p class="questionnaire-intro">
+          ✦ Quelques questions afin de préparer au mieux votre venue ✦
+        </p>
+
+        <a
+          class="questionnaire"
+          href="https://forms.gle/FoHmTBp75hx2q7oR9"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          ✦ RÉPONDRE AU QUESTIONNAIRE ✦
+        </a>
+
+      </div>
 
       <p>
         Nous vous invitons à le compléter avec soin, afin que nous puissions
@@ -221,25 +664,198 @@
         <strong>Priscillia et Océane ✨</strong>
       </p>
 
+      <div class="fin">
+        ❦ ✦ ❦
+      </div>
+
     </div>
 
   </div>
 
+  <!-- Bouton musique -->
+  <span class="mention-musique">
+    Ambiance musicale
+  </span>
+
+  <button id="musique" title="Activer ou couper la musique">
+    ♫
+  </button>
+
   <script>
+
+    /* =========================
+       OUVERTURE DE LA LETTRE
+       ========================= */
+
     const bouton = document.getElementById("ouvrir");
     const lettre = document.getElementById("lettre");
 
     lettre.style.display = "none";
 
     bouton.addEventListener("click", function() {
+
       bouton.style.display = "none";
+
       lettre.style.display = "block";
 
       setTimeout(function() {
+
         lettre.style.opacity = "1";
-        lettre.style.transform = "translateY(0)";
-      }, 50);
+        lettre.style.transform = "translateY(0) scale(1)";
+
+      }, 80);
+
+      demarrerMusique();
     });
+
+
+    /* =========================
+       MUSIQUE MÉDIÉVALE DOUCE
+       ========================= */
+
+    let audioContext = null;
+    let musiqueActive = false;
+    let oscillateurs = [];
+
+    const boutonMusique = document.getElementById("musique");
+
+    function demarrerMusique() {
+
+      if (musiqueActive) {
+        return;
+      }
+
+      if (!audioContext) {
+        audioContext = new (
+          window.AudioContext ||
+          window.webkitAudioContext
+        )();
+      }
+
+      if (audioContext.state === "suspended") {
+        audioContext.resume();
+      }
+
+      musiqueActive = true;
+      boutonMusique.textContent = "♫";
+
+      jouerMelodie();
+    }
+
+
+    function arreterMusique() {
+
+      oscillateurs.forEach(function(osc) {
+
+        try {
+          osc.stop();
+        } catch(e) {}
+
+      });
+
+      oscillateurs = [];
+
+      musiqueActive = false;
+      boutonMusique.textContent = "♪";
+    }
+
+
+    boutonMusique.addEventListener("click", function() {
+
+      if (musiqueActive) {
+        arreterMusique();
+      } else {
+        demarrerMusique();
+      }
+
+    });
+
+
+    function jouerNote(frequence, duree, debut) {
+
+      if (!audioContext) {
+        return;
+      }
+
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      osc.type = "sine";
+      osc.frequency.value = frequence;
+
+      gain.gain.setValueAtTime(
+        0,
+        audioContext.currentTime + debut
+      );
+
+      gain.gain.linearRampToValueAtTime(
+        0.035,
+        audioContext.currentTime + debut + 0.4
+      );
+
+      gain.gain.linearRampToValueAtTime(
+        0,
+        audioContext.currentTime + debut + duree
+      );
+
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+
+      osc.start(audioContext.currentTime + debut);
+      osc.stop(audioContext.currentTime + debut + duree + 0.1);
+
+      oscillateurs.push(osc);
+    }
+
+
+    function jouerMelodie() {
+
+      if (!musiqueActive) {
+        return;
+      }
+
+      /*
+        Petite mélodie douce inspirée des ambiances
+        médiévales/fantasy.
+      */
+
+      const notes = [
+        261.63,
+        329.63,
+        392.00,
+        329.63,
+        293.66,
+        349.23,
+        440.00,
+        349.23,
+        261.63,
+        329.63,
+        392.00,
+        523.25,
+        440.00,
+        392.00
+      ];
+
+      notes.forEach(function(note, index) {
+
+        jouerNote(
+          note,
+          3.2,
+          index * 1.1
+        );
+
+      });
+
+      setTimeout(function() {
+
+        if (musiqueActive) {
+          jouerMelodie();
+        }
+
+      }, notes.length * 1100);
+
+    }
+
   </script>
 
 </body>
