@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La lettre</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #541C3B;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .page {
+      width: 90%;
+      max-width: 700px;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      color: #f1dfbd;
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+
+    .page > p {
+      color: #d8c39f;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 15px 28px;
+      background: transparent;
+      color: #e0bd72;
+      border: 1px solid #c9a45c;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #3b1838;
+    }
+
+    .sceau {
+      width: 70px;
+      height: 70px;
+      margin: 25px auto -15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #8b183d;
+      border: 3px solid #b78b3d;
+      border-radius: 50%;
+      color: #f1dfbd;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow:
+        0 5px 10px rgba(0, 0, 0, 0.45),
+        inset 0 0 12px rgba(60, 0, 20, 0.5),
+        inset 0 0 0 4px #6b1230;
+    }
+
+    #lettre {
+      margin: 40px auto 0;
+      max-width: 500px;
+      padding: 45px 40px;
+      background:
+        linear-gradient(
+          rgba(255, 248, 220, 0.92),
+          rgba(224, 201, 151, 0.92)
+        );
+      color: #3b291c;
+      border: 3px double #b78b3d;
+      box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.55),
+        inset 0 0 30px rgba(120, 85, 30, 0.25);
+      text-align: left;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    #lettre h2 {
+      margin-top: 0;
+      color: #4a2c22;
+      font-weight: normal;
+      text-align: center;
+      font-size: 25px;
+    }
+
+    #lettre p {
+      color: #3b291c;
+      margin-bottom: 18px;
+    }
+
+    #lettre .signature {
+      margin-top: 35px;
+      text-align: right;
+      font-style: italic;
+      color: #5a3a25;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <h1>Une lettre vous est parvenue…</h1>
+
+    <p>Une histoire s'apprête à vous être révélée.</p>
+
+    <button id="ouvrir">✦ OUVRIR LA LETTRE ✦</button>
+
+    <div class="sceau">✦</div>
+
+    <div id="lettre">
+
+      <h2>Oyé ! Oyé !</h2>
+
+      <p><strong>Chers Façonneurs d’univers,</strong></p>
+
+      <p>
+        Nous avons bien reçu votre missive et vous remercions sincèrement
+        de l’intérêt porté au salon <strong>Cœur &amp; Couronne</strong>.
+      </p>
+
+      <p>
+        Nous avons le plaisir de vous annoncer que votre inscription à notre
+        noble salon <strong>Romance &amp; Fantasy</strong> est désormais
+        <strong>scellée et confirmée</strong> ! ✨
+      </p>
+
+      <p>
+        Votre échoppe vous est donc réservée pour cette belle aventure qui se
+        tiendra les <strong>5 et 6 juin 2027</strong>, en la salle Athlétis,
+        en notre contrée des Ponts-de-Cé.
+      </p>
+
+      <p>
+        Nous sommes ravis de vous compter parmi les
+        <strong>façonneurs d’univers</strong> qui feront vivre ce merveilleux
+        rassemblement.
+      </p>
+
+      <p>
+        Toutes les informations utiles concernant votre emplacement,
+        l’organisation du salon et les modalités pratiques vous seront
+        communiquées prochainement.
+      </p>
+
+      <p>
+        Afin que votre accueil en notre royaume soit digne de votre venue
+        et que chacune de vos attentes puisse être entendue, nous vous prions
+        de bien vouloir consulter le questionnaire joint à ce parchemin.
+      </p>
+
+      <p>
+        Nous vous invitons à le compléter avec soin, afin que nous puissions
+        préparer au mieux votre venue, votre échoppe et les commodités
+        nécessaires à votre séjour parmi nous.
+      </p>
+
+      <p>
+        Ces quelques informations nous permettront de veiller à votre confort
+        et de faire de ce noble rassemblement un moment placé sous le signe
+        de la convivialité, de la magie et du partage.
+      </p>
+
+      <p>
+        Nous vous remercions pour votre confiance et avons grande hâte de
+        vous accueillir parmi nous.
+      </p>
+
+      <p>
+        <strong>
+          Que vos plumes, pinceaux et talents fassent naître mille merveilles ! ✨📜
+        </strong>
+      </p>
+
+      <p class="signature">
+        Avec tout notre respect,<br>
+        <strong>Priscillia et Océane ✨</strong>
+      </p>
+
+    </div>
+
+  </div>
+
+  <script>
+    const bouton = document.getElementById("ouvrir");
+    const lettre = document.getElementById("lettre");
+
+    lettre.style.display = "none";
+
+    bouton.addEventListener("click", function() {
+      bouton.style.display = "none";
+      lettre.style.display = "block";
+
+      setTimeout(function() {
+        lettre.style.opacity = "1";
+        lettre.style.transform = "translateY(0)";
+      }, 50);
+    });
+  </script>
+
+</body>
+</html>
