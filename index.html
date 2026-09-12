@@ -507,51 +507,6 @@
     }
 
     /* =========================
-       MUSIQUE
-       ========================= */
-
-    #musique {
-      position: fixed;
-      z-index: 50;
-      bottom: 20px;
-      right: 20px;
-
-      width: 48px;
-      height: 48px;
-
-      border-radius: 50%;
-      border: 1px solid #c9a45c;
-
-      background: rgba(42, 13, 31, 0.88);
-      color: #e6c87f;
-
-      cursor: pointer;
-
-      box-shadow:
-        0 5px 15px rgba(0, 0, 0, 0.45);
-
-      font-size: 20px;
-
-      transition: all 0.3s ease;
-    }
-
-    #musique:hover {
-      transform: scale(1.08);
-    }
-
-    .mention-musique {
-      position: fixed;
-      z-index: 50;
-      bottom: 26px;
-      right: 78px;
-
-      color: rgba(240, 215, 174, 0.8);
-      font-size: 12px;
-      font-style: italic;
-      pointer-events: none;
-    }
-
-    /* =========================
        MOBILE
        ========================= */
 
@@ -572,10 +527,6 @@
 
       .ornement-libre {
         font-size: 19px;
-      }
-
-      .mention-musique {
-        display: none;
       }
     }
   </style>
@@ -723,14 +674,6 @@
 
   </div>
 
-  <span class="mention-musique">
-    Ambiance féérique
-  </span>
-
-  <button id="musique" title="Activer ou couper la musique">
-    ♫
-  </button>
-
   <script>
 
     const bouton = document.getElementById("ouvrir");
@@ -751,174 +694,7 @@
 
       }, 80);
 
-      demarrerMusique();
-
     });
-
-
-    /* =========================
-       MUSIQUE FÉÉRIQUE
-       ========================= */
-
-    let audioContext = null;
-    let musiqueActive = false;
-    let oscillateurs = [];
-
-    const boutonMusique = document.getElementById("musique");
-
-
-    function demarrerMusique() {
-
-      if (musiqueActive) {
-        return;
-      }
-
-      if (!audioContext) {
-
-        audioContext = new (
-          window.AudioContext ||
-          window.webkitAudioContext
-        )();
-
-      }
-
-      if (audioContext.state === "suspended") {
-        audioContext.resume();
-      }
-
-      musiqueActive = true;
-      boutonMusique.textContent = "♫";
-
-      jouerMelodie();
-
-    }
-
-
-    function arreterMusique() {
-
-      oscillateurs.forEach(function(osc) {
-
-        try {
-          osc.stop();
-        } catch(e) {}
-
-      });
-
-      oscillateurs = [];
-
-      musiqueActive = false;
-
-      boutonMusique.textContent = "♪";
-
-    }
-
-
-    boutonMusique.addEventListener("click", function() {
-
-      if (musiqueActive) {
-        arreterMusique();
-      } else {
-        demarrerMusique();
-      }
-
-    });
-
-
-    function jouerNote(frequence, duree, debut) {
-
-      if (!audioContext) {
-        return;
-      }
-
-      const osc = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-
-      osc.type = "triangle";
-      osc.frequency.value = frequence;
-
-      gain.gain.setValueAtTime(
-        0,
-        audioContext.currentTime + debut
-      );
-
-      gain.gain.linearRampToValueAtTime(
-        0.025,
-        audioContext.currentTime + debut + 0.25
-      );
-
-      gain.gain.linearRampToValueAtTime(
-        0,
-        audioContext.currentTime + debut + duree
-      );
-
-      osc.connect(gain);
-      gain.connect(audioContext.destination);
-
-      osc.start(audioContext.currentTime + debut);
-
-      osc.stop(
-        audioContext.currentTime + debut + duree + 0.1
-      );
-
-      oscillateurs.push(osc);
-
-    }
-
-
-    function jouerMelodie() {
-
-      if (!musiqueActive) {
-        return;
-      }
-
-      /*
-        Mélodie plus lumineuse :
-        inspiration fantasy / conte enchanté.
-      */
-
-      const notes = [
-
-        261.63,
-        329.63,
-        392.00,
-        523.25,
-
-        392.00,
-        329.63,
-        440.00,
-        523.25,
-
-        587.33,
-        523.25,
-        440.00,
-        392.00,
-
-        329.63,
-        392.00,
-        523.25,
-        659.25
-
-      ];
-
-      notes.forEach(function(note, index) {
-
-        jouerNote(
-          note,
-          2.2,
-          index * 0.8
-        );
-
-      });
-
-      setTimeout(function() {
-
-        if (musiqueActive) {
-          jouerMelodie();
-        }
-
-      }, notes.length * 800);
-
-    }
 
   </script>
 
